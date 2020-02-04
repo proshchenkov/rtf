@@ -168,13 +168,13 @@ end;
 
 procedure TForm1.N22Click(Sender: TObject);
 begin
-  ShowMessage('Текстовый редактор');
+  MessageDlg('Текстовый редактор', mtInformation, [mbOK], 0);
 end;
 
 procedure TForm1.N2Click(Sender: TObject);
 begin
   if MessageDlg('Выйти?', mtConfirmation, [mbYes, mbNo], 0) = mrYes then
-    close;
+    Close;
 end;
 
 procedure TForm1.N4Click(Sender: TObject);
@@ -232,7 +232,7 @@ begin
     end
     else
       MessageDlg(Concat('Could not find "', FindText, '" in RichEdit1.'),
-        mtError, [mbOk], 0);
+        mtError, [mbOK], 0);
   end;
 end;
 
