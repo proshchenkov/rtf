@@ -13,6 +13,7 @@ object Form1: TForm1
   Menu = MainMenu1
   OldCreateOrder = False
   Position = poScreenCenter
+  OnClose = FormClose
   PixelsPerInch = 96
   TextHeight = 13
   object RichEdit1: TRichEdit
@@ -51,6 +52,7 @@ object Form1: TForm1
       object Quit1: TMenuItem
         Caption = #1042#1099#1093#1086#1076
         ShortCut = 27
+        OnClick = Quit1Click
       end
     end
     object Edit1: TMenuItem

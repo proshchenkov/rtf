@@ -47,6 +47,8 @@ type
     procedure FindDialog1Find(Sender: TObject);
     procedure ReplaceDialog1Replace(Sender: TObject);
     procedure Replace1Click(Sender: TObject);
+    procedure Quit1Click(Sender: TObject);
+    procedure FormClose(Sender: TObject; var Action: TCloseAction);
   private
     { Private declarations }
   public
@@ -107,6 +109,11 @@ begin
   RichEdit1.SelAttributes.Style := FontDialog1.Font.Style;
 end;
 
+procedure TForm1.FormClose(Sender: TObject; var Action: TCloseAction);
+begin
+  Action := caFree;
+end;
+
 procedure TForm1.Found1Click(Sender: TObject);
 begin
   FindDialog1.Position := Point(RichEdit1.Left + RichEdit1.Width,
@@ -153,6 +160,11 @@ procedure TForm1.Print1Click(Sender: TObject);
 begin
   if PrintDialog1.Execute then
     RichEdit1.Print('');
+end;
+
+procedure TForm1.Quit1Click(Sender: TObject);
+begin
+  Close;
 end;
 
 procedure TForm1.ReplaceDialog1Replace(Sender: TObject);
