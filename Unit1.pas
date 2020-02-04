@@ -4,8 +4,8 @@ interface
 
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants,
-  System.Classes, Vcl.Graphics,
-  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Vcl.ComCtrls, Vcl.Menus;
+  System.Classes, Vcl.Graphics, Vcl.Controls, Vcl.Forms, Vcl.Dialogs,
+  Vcl.StdCtrls, Vcl.ComCtrls, Vcl.Menus, Vcl.ExtDlgs;
 
 type
   TForm1 = class(TForm)
@@ -13,57 +13,40 @@ type
     File1: TMenuItem;
     Print1: TMenuItem;
     RichEdit1: TRichEdit;
-    Open1: TMenuItem;
     Save1: TMenuItem;
-    OpenDialog1: TOpenDialog;
-    SaveDialog1: TSaveDialog;
     PrintDialog1: TPrintDialog;
     FontDialog1: TFontDialog;
     Font1: TMenuItem;
+    Format1: TMenuItem;
+    Quit1: TMenuItem;
+    Edit1: TMenuItem;
+    Undo1: TMenuItem;
     N1: TMenuItem;
+    Cut1: TMenuItem;
+    Copy1: TMenuItem;
+    Paste1: TMenuItem;
+    Delete1: TMenuItem;
     N2: TMenuItem;
+    Found1: TMenuItem;
+    Replace1: TMenuItem;
+    SelectAll1: TMenuItem;
     N3: TMenuItem;
-    N4: TMenuItem;
-    N5: TMenuItem;
-    N6: TMenuItem;
-    N7: TMenuItem;
-    N8: TMenuItem;
-    N9: TMenuItem;
-    N10: TMenuItem;
-    N11: TMenuItem;
-    N12: TMenuItem;
-    N13: TMenuItem;
-    N14: TMenuItem;
-    N15: TMenuItem;
-    N16: TMenuItem;
-    N17: TMenuItem;
-    N18: TMenuItem;
-    N19: TMenuItem;
-    N20: TMenuItem;
-    StatusBar1: TStatusBar;
     FindDialog1: TFindDialog;
     ReplaceDialog1: TReplaceDialog;
-    N21: TMenuItem;
-    N22: TMenuItem;
+    SaveDialog1: TSaveDialog;
     procedure Print1Click(Sender: TObject);
-    procedure Open1Click(Sender: TObject);
     procedure Save1Click(Sender: TObject);
     procedure Font1Click(Sender: TObject);
-    procedure N4Click(Sender: TObject);
-    procedure N15Click(Sender: TObject);
-    procedure N2Click(Sender: TObject);
-    procedure N6Click(Sender: TObject);
-    procedure N7Click(Sender: TObject);
-    procedure N8Click(Sender: TObject);
-    procedure N9Click(Sender: TObject);
-    procedure N13Click(Sender: TObject);
-    procedure N14Click(Sender: TObject);
-    procedure N20Click(Sender: TObject);
-    procedure N11Click(Sender: TObject);
+    procedure Undo1Click(Sender: TObject);
+    procedure Cut1Click(Sender: TObject);
+    procedure Copy1Click(Sender: TObject);
+    procedure Paste1Click(Sender: TObject);
+    procedure Delete1Click(Sender: TObject);
+    procedure SelectAll1Click(Sender: TObject);
+    procedure Found1Click(Sender: TObject);
     procedure FindDialog1Find(Sender: TObject);
     procedure ReplaceDialog1Replace(Sender: TObject);
-    procedure N12Click(Sender: TObject);
-    procedure N22Click(Sender: TObject);
+    procedure Replace1Click(Sender: TObject);
   private
     { Private declarations }
   public
@@ -124,91 +107,46 @@ begin
   RichEdit1.SelAttributes.Style := FontDialog1.Font.Style;
 end;
 
-procedure TForm1.N11Click(Sender: TObject);
+procedure TForm1.Found1Click(Sender: TObject);
 begin
   FindDialog1.Position := Point(RichEdit1.Left + RichEdit1.Width,
     RichEdit1.Top);
   FindDialog1.Execute;
 end;
 
-procedure TForm1.N12Click(Sender: TObject);
+procedure TForm1.Replace1Click(Sender: TObject);
 begin
   ReplaceDialog1.Execute;
 end;
 
-procedure TForm1.N13Click(Sender: TObject);
+procedure TForm1.SelectAll1Click(Sender: TObject);
 begin
   RichEdit1.SelectAll;
 end;
 
-procedure TForm1.N14Click(Sender: TObject);
-begin
-  RichEdit1.Text := RichEdit1.Text + FormatDateTime('hh.nn', Time) + ' ' +
-    DateToStr(Date);
-end;
-
-procedure TForm1.N15Click(Sender: TObject);
-begin
-  RichEdit1.Text := '';
-end;
-
-procedure TForm1.N20Click(Sender: TObject);
-begin
-  if StatusBar1.Visible = False then
-  begin
-    StatusBar1.Visible := True;
-    N20.Checked := True;
-  end
-  else
-  begin
-    StatusBar1.Visible := False;
-    N20.Checked := False;
-  end;
-end;
-
-procedure TForm1.N22Click(Sender: TObject);
-begin
-  MessageDlg('Текстовый редактор', mtInformation, [mbOK], 0);
-end;
-
-procedure TForm1.N2Click(Sender: TObject);
-begin
-  if MessageDlg('Выйти?', mtConfirmation, [mbYes, mbNo], 0) = mrYes then
-    Close;
-end;
-
-procedure TForm1.N4Click(Sender: TObject);
+procedure TForm1.Undo1Click(Sender: TObject);
 begin
   RichEdit1.Undo;
 end;
 
-procedure TForm1.N6Click(Sender: TObject);
+procedure TForm1.Cut1Click(Sender: TObject);
 begin
   RichEdit1.CutToClipboard;
 end;
 
-procedure TForm1.N7Click(Sender: TObject);
+procedure TForm1.Copy1Click(Sender: TObject);
 begin
   RichEdit1.CopyToClipboard;
 end;
 
-procedure TForm1.N8Click(Sender: TObject);
+procedure TForm1.Paste1Click(Sender: TObject);
 begin
   RichEdit1.PasteFromClipboard;
 end;
 
-procedure TForm1.N9Click(Sender: TObject);
+procedure TForm1.Delete1Click(Sender: TObject);
 begin
   RichEdit1.ClearSelection;
-end;
-
-procedure TForm1.Open1Click(Sender: TObject);
-begin
-  if OpenDialog1.Execute then
-  begin
-    RichEdit1.Lines.LoadFromFile(OpenDialog1.filename);
-    StatusBar1.Panels[0].Text := OpenDialog1.filename;
-  end;
 end;
 
 procedure TForm1.Print1Click(Sender: TObject);
@@ -239,10 +177,7 @@ end;
 procedure TForm1.Save1Click(Sender: TObject);
 begin
   if SaveDialog1.Execute then
-  begin
-    RichEdit1.Lines.LoadFromFile(SaveDialog1.filename);
-    StatusBar1.Panels[0].Text := SaveDialog1.filename;
-  end;
+    RichEdit1.Lines.SaveToFile(SaveDialog1.FileName + '.rtf');
 end;
 
 end.
